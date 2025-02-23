@@ -25,7 +25,7 @@ public class Main {
 
             int action = 0;
 
-            action = Integer.parseInt(scanner.nextLine());
+            action = is_valid_int(scanner);
 
             switch (action) {
                 case 1:
@@ -62,7 +62,7 @@ public class Main {
         PriorityQueue<Task> temp_tasks = new PriorityQueue<>();
 
         int inp_id = 0;
-        inp_id = Integer.parseInt(scanner.nextLine());
+        inp_id = is_valid_int(scanner);
 
         while (iterator.hasNext()) {
             Task task = iterator.next();
@@ -81,10 +81,24 @@ public class Main {
         System.out.println("Enter description:");
         String description1 = scanner.nextLine();
         System.out.println("Enter priority");
-        int priority = Integer.parseInt(scanner.nextLine());
+        int priority = 0;
+        priority = is_valid_int(scanner);
 
         Task task1 = new Task(name1, description1, priority, current_id);
         tasks.add(task1);
+    }
+
+    private static int is_valid_int(Scanner scanner) {
+        int val = 0;
+        while (true) {
+            try {
+                val = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Wrong input. Try again: ");
+            }
+        }
+        return val;
     }
 
 }
