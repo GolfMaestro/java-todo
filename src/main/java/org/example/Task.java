@@ -4,26 +4,27 @@ public class Task implements Comparable<Task>{
 
     private final String name;
     private final String description;
-    private final boolean status;
     private final int priority;
+    private final int id;
 
-    public Task(String name, String description, boolean status, int priority) {
+    public Task(String name, String description, int priority, int id) {
         this.name = name;
         this.description = description;
-        this.status = status;
         this.priority = priority;
+        this.id = id;
     }
 
     @Override
     public int compareTo(Task task) {
-        return task.priority - this.priority;
+        return this.priority - task.priority;
     }
 
     public void show_task() {
+        System.out.printf("ID: %d\n", id);
         System.out.printf("NAME: %s\n", name);
         System.out.printf("DESCRIPTION: %s\n", description);
-        System.out.printf("STATUS: %b\n", status);
-        System.out.printf("PRIORITY: %d", priority);
+        System.out.printf("PRIORITY: %d\n", priority);
+        System.out.println("---------------------\n");
     }
 
 }
