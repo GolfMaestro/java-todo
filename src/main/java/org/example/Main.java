@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -7,9 +8,6 @@ public class Main {
     public static void main(String[] args) {
 
         PriorityQueue<Task> tasks = new PriorityQueue<>();
-
-        //tasks.add(new Task("Task 1", "Do job", true, 4));
-        //tasks.add(new Task("Task 2", "Go for a walk", true, 1));
 
         Scanner scanner = new Scanner(System.in);
 
@@ -22,7 +20,8 @@ public class Main {
             System.out.println("2. Get next task");
             System.out.println("3. Add task");
             System.out.println("4. Delete highest-priority task");
-            System.out.println("5. Exit");
+            System.out.println("5. Delete task by its ID");
+            System.out.println("6. Exit");
 
             int action = 0;
 
@@ -43,6 +42,9 @@ public class Main {
                     tasks.poll();
                     break;
                 case 5:
+                    delete_task_by_id(scanner, tasks);
+                    break;
+                case 6:
                     exit = 1;
                     break;
                 default:
@@ -53,7 +55,27 @@ public class Main {
         }
 
     }
-    public static void create_task(Scanner scanner, PriorityQueue<Task> tasks, int current_id) {
+
+    private static void delete_task_by_id(Scanner scanner, PriorityQueue<Task> tasks) {
+
+        Iterator<Task> iterator = tasks.iterator();
+        PriorityQueue<Task> temp_tasks = new PriorityQueue<>();
+
+        int inp_id = 0;
+        inp_id = Integer.parseInt(scanner.nextLine());
+
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
+            if (task.id != inp_id) {
+                temp_tasks.add(task);
+            }
+        }
+        tasks.clear();
+        tasks.addAll(temp_tasks);
+
+    }
+
+    private static void create_task(Scanner scanner, PriorityQueue<Task> tasks, int current_id) {
         System.out.println("Enter name:");
         String name1 = scanner.nextLine();
         System.out.println("Enter description:");
