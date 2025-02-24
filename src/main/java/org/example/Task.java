@@ -4,7 +4,7 @@ public class Task implements Comparable<Task>{
 
     private final String name;
     private final String description;
-    private final int priority;
+    int priority;
     final int id;
 
     public Task(String name, String description, int priority, int id) {

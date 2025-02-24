@@ -21,7 +21,10 @@ public class Main {
             System.out.println("3. Add task");
             System.out.println("4. Delete highest-priority task");
             System.out.println("5. Delete task by its ID");
-            System.out.println("6. Exit");
+            System.out.println("6. Update task priority");
+            System.out.println("7. Count task");
+            System.out.println("8. Clear all tasks");
+            System.out.println("9. Exit");
 
             int action = 0;
 
@@ -32,7 +35,12 @@ public class Main {
                     tasks.forEach(Task::show_task);
                     break;
                 case 2:
-                    tasks.peek().show_task();
+                    if (!tasks.isEmpty()) {
+                        tasks.peek().show_task();
+                    }
+                    else {
+                        System.out.println("No tasks in queue");
+                    }
                     break;
                 case 3:
                     create_task(scanner, tasks, current_id);
@@ -45,6 +53,15 @@ public class Main {
                     delete_task_by_id(scanner, tasks);
                     break;
                 case 6:
+                    update_task(scanner, tasks);
+                    break;
+                case 7:
+                    System.out.println(tasks.size());
+                    break;
+                case 8:
+                    tasks.clear();
+                    break;
+                case 9:
                     exit = 1;
                     break;
                 default:
@@ -60,6 +77,8 @@ public class Main {
 
         Iterator<Task> iterator = tasks.iterator();
         PriorityQueue<Task> temp_tasks = new PriorityQueue<>();
+
+        System.out.println("Enter task ID:");
 
         int inp_id = 0;
         inp_id = is_valid_int(scanner);
@@ -88,6 +107,35 @@ public class Main {
         tasks.add(task1);
     }
 
+    private static void update_task(Scanner scanner, PriorityQueue<Task> tasks) {
+
+        Iterator<Task> iterator = tasks.iterator();
+        PriorityQueue<Task> temp_tasks = new PriorityQueue<>();
+
+        System.out.println("Enter task ID:");
+
+        int inp = 0;
+        inp = is_valid_id(scanner, tasks);
+
+        System.out.println("Enter new priority:");
+        int new_priority = 0;
+        new_priority = is_valid_int(scanner);
+        Task updated_task = tasks.peek();
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
+            if (task.id == inp) {
+                task.priority = new_priority;
+                updated_task = task;
+            }
+            else {
+                temp_tasks.add(task);
+            }
+        }
+        tasks.clear();
+        tasks.addAll(temp_tasks);
+        tasks.add(updated_task);
+    }
+
     private static int is_valid_int(Scanner scanner) {
         int val = 0;
         while (true) {
@@ -99,6 +147,29 @@ public class Main {
             }
         }
         return val;
+    }
+
+    private static int is_valid_id(Scanner scanner, PriorityQueue<Task> tasks) {
+
+        Iterator<Task> iterator = tasks.iterator();
+
+        boolean exist = false;
+        int inp = 0;
+        while (!exist) {
+            inp = is_valid_int(scanner);
+            while (iterator.hasNext()) {
+                Task task = iterator.next();
+                if (task.id == inp) {
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist) {
+                System.out.println("No task with this ID. Try again");
+            }
+        }
+        return inp;
+
     }
 
 }
