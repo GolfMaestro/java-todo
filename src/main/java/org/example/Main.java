@@ -85,7 +85,7 @@ public class Main {
 
         while (iterator.hasNext()) {
             Task task = iterator.next();
-            if (task.id != inp_id) {
+            if (task.get_id() != inp_id) {
                 temp_tasks.add(task);
             }
         }
@@ -123,8 +123,8 @@ public class Main {
         Task updated_task = tasks.peek();
         while (iterator.hasNext()) {
             Task task = iterator.next();
-            if (task.id == inp) {
-                task.priority = new_priority;
+            if (task.get_id() == inp) {
+                task.change_priority(new_priority);
                 updated_task = task;
             }
             else {
@@ -159,7 +159,7 @@ public class Main {
             inp = is_valid_int(scanner);
             while (iterator.hasNext()) {
                 Task task = iterator.next();
-                if (task.id == inp) {
+                if (task.get_id() == inp) {
                     exist = true;
                     break;
                 }

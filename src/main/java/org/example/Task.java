@@ -4,8 +4,8 @@ public class Task implements Comparable<Task>{
 
     private final String name;
     private final String description;
-    int priority;
-    final int id;
+    private int priority;
+    private final int id;
 
     public Task(String name, String description, int priority, int id) {
         this.name = name;
@@ -25,6 +25,14 @@ public class Task implements Comparable<Task>{
         System.out.printf("DESCRIPTION: %s\n", description);
         System.out.printf("PRIORITY: %d\n", priority);
         System.out.println("---------------------\n");
+    }
+
+    public void change_priority(int new_priority) {
+        priority = new_priority;
+    }
+
+    public int get_id() {
+        return id;
     }
 
 }
